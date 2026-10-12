@@ -1,4 +1,3 @@
-
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package ca.tetervak.marsphotos.ui
@@ -16,10 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import ca.tetervak.marsphotos.R
 import ca.tetervak.marsphotos.ui.screens.HomeScreen
 import ca.tetervak.marsphotos.ui.screens.MarsViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MarsPhotosApp() {
@@ -31,8 +30,7 @@ fun MarsPhotosApp() {
         Surface(
             modifier = Modifier.fillMaxSize()
         ) {
-            val marsViewModel: MarsViewModel =
-                viewModel(factory = MarsViewModel.Factory)
+            val marsViewModel: MarsViewModel = koinViewModel()
             HomeScreen(
                 marsUiState = marsViewModel.marsUiState,
                 retryAction = marsViewModel::getMarsPhotos,

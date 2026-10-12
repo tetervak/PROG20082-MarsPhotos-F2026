@@ -1,14 +1,16 @@
 package ca.tetervak.marsphotos
 
 import android.app.Application
-import ca.tetervak.marsphotos.data.AppContainer
-import ca.tetervak.marsphotos.data.DefaultAppContainer
+import ca.tetervak.marsphotos.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class MarsPhotosApplication : Application() {
-    /** AppContainer instance used by the rest of classes to obtain dependencies */
-    lateinit var container: AppContainer
     override fun onCreate() {
         super.onCreate()
-        container = DefaultAppContainer()
+        startKoin {
+            androidContext(this@MarsPhotosApplication)
+            modules(appModule)
+        }
     }
 }

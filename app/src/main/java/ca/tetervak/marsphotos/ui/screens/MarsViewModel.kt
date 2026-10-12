@@ -4,12 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import ca.tetervak.marsphotos.MarsPhotosApplication
 import ca.tetervak.marsphotos.data.MarsPhotosRepository
 import ca.tetervak.marsphotos.model.MarsPhoto
 import kotlinx.coroutines.launch
@@ -50,19 +45,6 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
                 MarsUiState.Error
             } catch (e: HttpException) {
                 MarsUiState.Error
-            }
-        }
-    }
-
-    /**
-     * Factory for [MarsViewModel] that takes [MarsPhotosRepository] as a dependency
-     */
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[APPLICATION_KEY] as MarsPhotosApplication)
-                val marsPhotosRepository = application.container.marsPhotosRepository
-                MarsViewModel(marsPhotosRepository = marsPhotosRepository)
             }
         }
     }
